@@ -7,14 +7,19 @@
 </head>
 <body>
     <h1>Registration Form</h1>
-    <form action="">
+    <form action="" id="registerform">
         <label for="username">Username</label>
         <input type ="text" id="username" required>
         <br>
-        <label for="" >Password"</label>
+        <label for="password" >Password"</label>
         <input type="password"id="password"required>
         <br>
         <button type ="submit">Register</button>
     </form>
 </body>
 </html>
+<script>
+    document.getElementById("registerform").addEventListener("submit",function(e){
+        e.preventDefault();
+    })
+</script>
