@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+        <title>Enhanced To-Do List</title>
+        <link rel="stylesheet" href="styles.css">  <!-- Link CSS File -->
+    </head>
+    
+</head>
+<body>
+
+    <div id="todo-container">
+        <h2>Enhanced To-Do List</h2>
+        <input type="text" id="taskInput" placeholder="Add a new task...">
+        <button onclick="addTask()">Add</button>
+        <ul id="taskList"></ul>
+    </div>
+
+    <script>
+        // Load tasks when the page loads
+        document.addEventListener("DOMContentLoaded", loadTasks);
+
+        function addTask() {
+            let taskInput = document.getElementById("taskInput");
+            let taskValue = taskInput.value.trim();
+            if (taskValue === "") return;
+
+            let tasks = getTasksFromLocalStorage();
+            tasks.push({ text: taskValue, completed: false });
+            saveTasksToLocalStorage(tasks);
+
+            taskInput.value = "";
+            renderTasks();
+        }
+
+        function toggleTask(index) {
+            let tasks = getTasksFromLocalStorage();
+            tasks[index].completed = !tasks[index].completed;
+            saveTasksToLocalStorage(tasks);
+            renderTasks();
+        }
+
+        function deleteTask(index) {
+            let tasks = getTasksFromLocalStorage();
+            tasks.splice(index, 1);
+            saveTasksToLocalStorage(tasks);
+            renderTasks();
+        }
+
+        function getTasksFromLocalStorage() {
+            let tasks = localStorage.getItem("tasks");
+            return tasks ? JSON.parse(tasks) : [];
+        }
+
+        function saveTasksToLocalStorage(tasks) {
+            localStorage.setItem("tasks", JSON.stringify(tasks));
+        }
+
+        function renderTasks() {
+            let taskList = document.getElementById("taskList");
+            taskList.innerHTML = "";
+
+            let tasks = getTasksFromLocalStorage();
+            tasks.forEach((task, index) => {
+                let li = document.createElement("li");
+                li.innerHTML = `<span onclick="toggleTask(${index})" class="${task.completed ? 'completed' : ''}">${task.text}</span> 
+                                <button class="delete-btn" onclick="deleteTask(${index})">X</button>`;
+                taskList.appendChild(li);
+            });
+        }
+
+        function loadTasks() {
+            renderTasks();
+        }
+    </script>
+
+</body>
+</html>

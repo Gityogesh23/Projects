@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+</head>
+<body>
+    <h1>Login Form</h1>
+    <form action="" id="loginform">
+        <label for="username">Username</label>
+        <input type="text" id="username"required>
+        <br>
+        <label for="password">Password </label>
+        <input type="password"id="password"required>
+        <br>
+        <p>Don't have an Account ? <a href="register.html">Register</a></p>
+        <button type=""submit>Login</button>
+    </form>
+</body>
+</html>
+<script>
+    document.getElementById("loginform").addEventListener("submit",function(e){
+        e.preventDefault();
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+        
+        var storedPassword = localStorage.getItem(username);
+        
+        if(storedPassword===null){
+            alert("User not registered");
+        }
+        else{
+            if(storedPassword === password){
+            alert("Login Successfully");
+            window.location.href="index.html"
+            }
+            else{
+                alert("Invalid password");
+                return;
+            }
+        }
+    });  
+      
+</script>

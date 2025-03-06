@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Page</title>
+</head>
+<body>
+    <h1>Registration Form</h1>
+    <form action="" id="registerform">
+        <label for="username">Username</label>
+        <input type ="text" id="username" required>
+        <br>
+        <label for="password" >Password"</label>
+        <input type="password"id="password"required>
+        <br>
+        <p>Already have an Account ? <a href="login.html">Login</a></p>
+        <button type ="submit">Register</button>
+    </form>
+</body>
+</html>
+<script>
+    document.getElementById("registerform").addEventListener("submit",function(e){
+        e.preventDefault();
+        var username=document.getElementById("username").value;
+        var password=document.getElementById("password").value;   
+        
+        if(localStorage.getItem(username)){
+            alert("this Username already taken,use another")
+            return;
+        }
+        localStorage.setItem(username,password);
+        alert("User Registered Successfully");
+        window.location.href='login.html'
+   })   
+</script>
